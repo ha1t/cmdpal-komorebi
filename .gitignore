@@ -1,0 +1,14 @@
+# Build outputs
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Environment-specific samples (個人のウィンドウタイトル等を含むため除外)
+state-sample.json

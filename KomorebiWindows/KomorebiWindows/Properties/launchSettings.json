@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "KomorebiWindows (Package)": {
+      "commandName": "MsixPackage",
+      "doNotLaunchApp": true
+    },
+    "KomorebiWindows (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
