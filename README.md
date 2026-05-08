@@ -18,13 +18,29 @@
 - [komorebi](https://github.com/LGUG2Z/komorebi) v0.1.38+ (動作確認は v0.1.41)
 - ビルド時: Visual Studio 2022 17.14+ (Windows App SDK / WinUI ワークロード) + Windows 11 SDK 10.0.26100 + [Developer Mode 有効](https://learn.microsoft.com/windows/apps/get-started/enable-your-device-for-development)
 
-## ビルドとインストール
+## インストール (バイナリ配布版)
+
+ビルド環境を用意したくない人向け。[Releases](../../releases) から `.msix` と `.cer` をダウンロードしてください。
+
+1. このプロジェクトの **`dist/KomorebiWindows.cer`** を「信頼された発行元」にインポート (**管理者 PowerShell** で実行):
+   ```powershell
+   Import-Certificate -FilePath .\KomorebiWindows.cer -CertStoreLocation Cert:\LocalMachine\TrustedPeople
+   ```
+2. `KomorebiWindows_<version>_x64.msix` をダブルクリック → 「インストール」
+3. Command Palette で `Reload Command Palette Extension` を実行
+4. `Win+Alt+Space` → `Komorebi` で起動
+
+> `.cer` は self-signed (CN=ha1t) です。インポートすると `ha1t` が署名した MSIX を信頼することになります。気になる場合はソースからビルドしてください。
+
+## ソースからビルド
 
 1. このリポジトリを clone
 2. Visual Studio 2022 で `KomorebiWindows/KomorebiWindows.sln` を開く
 3. ソリューションエクスプローラで `KomorebiWindows` プロジェクトを右クリック → **配置 (Deploy)**
 4. Command Palette を開いて `Reload` で **Reload Command Palette Extension** を実行
 5. `Win+Alt+Space` → `Komorebi` で起動
+
+> 初回ビルド時に VS が `KomorebiWindows_TemporaryKey.pfx` を要求します。プロジェクト内に既存の pfx (CN=ha1t) があればそれを使うか、`Package.appxmanifest` のパッケージ化タブで自分の証明書を新規作成してください。
 
 ## 使い方
 

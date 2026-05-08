@@ -10,5 +10,13 @@ obj/
 # Logs
 *.log
 
+# Code-signing private keys (秘密鍵は絶対 commit しない)
+*.pfx
+
+# Generated MSIX packages
+*.msix
+*.msixbundle
+AppPackages/
+
 # Environment-specific samples (個人のウィンドウタイトル等を含むため除外)
 state-sample.json

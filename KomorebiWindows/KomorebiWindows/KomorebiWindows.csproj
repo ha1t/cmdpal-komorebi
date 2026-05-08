@@ -3,6 +3,8 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>KomorebiWindows</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <PackageCertificateKeyFile>KomorebiWindows_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>D6B410D5BD39C824D2625E8181E6ECA00B4941D0</PackageCertificateThumbprint>
 
     <WindowsSdkPackageVersion>10.0.26100.68-preview</WindowsSdkPackageVersion>
     <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
