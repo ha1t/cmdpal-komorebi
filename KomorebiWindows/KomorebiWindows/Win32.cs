@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace KomorebiWindows;
 
@@ -31,12 +30,13 @@ internal static class Win32
     private static extern bool CloseHandle(IntPtr h);
 
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool QueryFullProcessImageNameW(
-        IntPtr hProcess, uint flags, StringBuilder buf, ref uint size);
+        IntPtr hProcess, uint flags, [Out] char[] buf, ref uint size);
 
     public static string? GetExePathFromHwnd(long hwnd)
     {
-        GetWindowThreadProcessId((IntPtr)hwnd, out var pid);
+        _ = GetWindowThreadProcessId(checked((IntPtr)hwnd), out var pid);
         if (pid == 0)
         {
             return null;
@@ -50,9 +50,11 @@ internal static class Win32
 
         try
         {
-            var sb = new StringBuilder(1024);
-            var size = (uint)sb.Capacity;
-            return QueryFullProcessImageNameW(h, 0, sb, ref size) ? sb.ToString() : null;
+            var buf = new char[1024];
+            var size = (uint)buf.Length;
+            return QueryFullProcessImageNameW(h, 0, buf, ref size)
+                ? new string(buf, 0, (int)size)
+                : null;
         }
         finally
         {

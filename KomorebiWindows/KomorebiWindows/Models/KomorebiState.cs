@@ -3,13 +3,13 @@ using System.Text.Json.Serialization;
 
 namespace KomorebiWindows.Models;
 
-internal record KomorebiState
+internal sealed record KomorebiState
 {
     [JsonPropertyName("monitors")]
     public Ring<Monitor> Monitors { get; init; } = new();
 }
 
-internal record Ring<T>
+internal sealed record Ring<T>
 {
     [JsonPropertyName("elements")]
     public List<T> Elements { get; init; } = new();
@@ -18,13 +18,13 @@ internal record Ring<T>
     public int Focused { get; init; }
 }
 
-internal record Monitor
+internal sealed record Monitor
 {
     public string Name { get; init; } = "";
     public Ring<Workspace> Workspaces { get; init; } = new();
 }
 
-internal record Workspace
+internal sealed record Workspace
 {
     public string Name { get; init; } = "";
     public Ring<Container> Containers { get; init; } = new();
@@ -33,12 +33,12 @@ internal record Workspace
     public Ring<KomorebiWindow> FloatingWindows { get; init; } = new();
 }
 
-internal record Container
+internal sealed record Container
 {
     public Ring<KomorebiWindow> Windows { get; init; } = new();
 }
 
-internal record KomorebiWindow
+internal sealed record KomorebiWindow
 {
     public long Hwnd { get; init; }
     public string Title { get; init; } = "";

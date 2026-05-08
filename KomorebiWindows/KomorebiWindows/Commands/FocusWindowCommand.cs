@@ -25,8 +25,9 @@ internal sealed partial class FocusWindowCommand : InvokableCommand
         // komorebi の cloak 解除を待つ
         Thread.Sleep(50);
 
-        Win32.ShowWindow((IntPtr)_hwnd, Win32.SW_RESTORE);
-        Win32.SetForegroundWindow((IntPtr)_hwnd);
+        var h = checked((IntPtr)_hwnd);
+        Win32.ShowWindow(h, Win32.SW_RESTORE);
+        Win32.SetForegroundWindow(h);
 
         return CommandResult.Hide();
     }

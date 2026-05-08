@@ -10,11 +10,6 @@ namespace KomorebiWindows;
 
 internal static class KomorebiClient
 {
-    private static readonly JsonSerializerOptions JsonOpts = new()
-    {
-        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-    };
-
     private static string? _resolvedExePath;
 
     public static KomorebiState GetState()
@@ -30,7 +25,7 @@ internal static class KomorebiClient
         using var p = Process.Start(psi)!;
         var json = p.StandardOutput.ReadToEnd();
         p.WaitForExit(2000);
-        return JsonSerializer.Deserialize<KomorebiState>(json, JsonOpts) ?? new KomorebiState();
+        return JsonSerializer.Deserialize(json, KomorebiJsonContext.Default.KomorebiState) ?? new KomorebiState();
     }
 
     public static void RunCommand(string args)
